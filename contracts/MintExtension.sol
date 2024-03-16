@@ -14,7 +14,7 @@ contract ERC721LazyMint is AdminControl, ICreatorExtensionTokenURI {
     address private _creator; // Manifold Contract
     string private _baseURI; // Sources URI from Akord
     uint256 private _tokenCount;
-    uint256 public _maxTokens = 69;
+    uint256 public _maxTokens = 69; // Set to be 69, can be reduced with capSupply()
     uint256 private _mintPrice;
 
     address payable private alchemistressesMolochTreasury; // DAO RQ Treasury
@@ -22,11 +22,11 @@ contract ERC721LazyMint is AdminControl, ICreatorExtensionTokenURI {
     uint256 private constant primaryShare = 975; // 97.5%
     uint256 private constant totalShare = 1000; // Total shares represented as 100%
 
-    // Event declaration
+    // Event declarations used to provide information to the Squarespace Frontend
     event TokenMinted(uint256 totalTokenCount);
     event MaxTokensUpdated(uint256 newMaxTokens); // Event declaration for updating max tokens
     event SoldOut();
-
+ 
     constructor(
         address creator, 
         address payable _alchemistressesMolochTreasury, 
@@ -41,6 +41,8 @@ contract ERC721LazyMint is AdminControl, ICreatorExtensionTokenURI {
         return interfaceId == type(ICreatorExtensionTokenURI).interfaceId || AdminControl.supportsInterface(interfaceId) || super.supportsInterface(interfaceId);
     }
 
+    // Free Mint for alchemistressesMolochTreasury -- Everyone else has to pay _mintPrice.
+
     function mint() public payable {
         require(_tokenCount < _maxTokens, "Max token limit reached");
         if (msg.sender != alchemistressesMolochTreasury) {
@@ -53,6 +55,9 @@ contract ERC721LazyMint is AdminControl, ICreatorExtensionTokenURI {
             emit SoldOut();
         }
     }
+
+    // Free batch of 10 Mints for alchemistressesMolochTreasury -- Nobody else can use this function.
+    // If there are not enough mints left for 10, it will accept less.
 
     function mintBatchLimited() public payable {
         require(msg.sender == alchemistressesMolochTreasury, "Caller is not authorized");
@@ -71,6 +76,7 @@ contract ERC721LazyMint is AdminControl, ICreatorExtensionTokenURI {
         }
     }
 
+    // setBaseURI after deploying
     function setBaseURI(string memory baseURI) public adminRequired {
         _baseURI = baseURI;
     }
@@ -79,6 +85,7 @@ contract ERC721LazyMint is AdminControl, ICreatorExtensionTokenURI {
         return _tokenCount;
     }
 
+    // setMintPrice after deploying
     function setMintPrice(uint256 price) public adminRequired {
         _mintPrice = price;
     }
@@ -88,13 +95,14 @@ contract ERC721LazyMint is AdminControl, ICreatorExtensionTokenURI {
         return string(abi.encodePacked(_baseURI, tokenId.toString(), ".json"));
     }
 
-   // Function to cap the current supply
+   // Cap the supply at any moment -- if there is no demand for the artwork, you can shut it down.
     function capSupply() public adminRequired {
         _maxTokens = _tokenCount;
         emit MaxTokensUpdated(_maxTokens);
         emit SoldOut();
     }
 
+    // Withdraw function can be called by anyone. It sends 97.5% to the DAO Treasury, and the remainder to the OpMultisig.
     function withdraw() public {
         uint256 totalAmount = address(this).balance;
         uint256 primaryAmount = (totalAmount * primaryShare) / totalShare;
