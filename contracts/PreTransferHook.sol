@@ -13,7 +13,7 @@ interface IERC6551Registry {
     function account(address implementation, bytes32 salt, uint256 chainId, address tokenContract, uint256 tokenId) external view returns (address account);
 }
 
-contract ERC721Soulbound is ERC721CreatorExtensionApproveTransfer {
+contract PreTransferHook is ERC721CreatorExtensionApproveTransfer {
     IERC20 private molochShareToken;
     IERC6551Registry private erc6551Registry;
     address private implementationAddress;

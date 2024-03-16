@@ -1,22 +1,38 @@
 import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox-viem";
-import * as dotenv from 'dotenv';
+import "@nomicfoundation/hardhat-toolbox-viem"; // Assuming this is a correct plugin import
+import "@nomiclabs/hardhat-waffle";
+import "@nomicfoundation/hardhat-verify";
+import dotenv from 'dotenv';
 
-dotenv.config(); // Load the environment variables from the .env file
+dotenv.config();
+
+const { DEPLOYER_PRIVATE_KEY, ALCHEMY_API_KEY_OPTIMISM, ALCHEMY_API_KEY_SEPIOLA, ETHERSCAN_API_KEY } = process.env;
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.24",
+  solidity: "0.8.24", // Use the most recent version specified
+  paths: {
+    sources: "./contracts",
+    artifacts: './artifacts',
+    cache: "./cache",
+  },
   networks: {
-    sepolia: {
-      url: process.env.SEPOLIA_RPC_URL,
-      accounts: [`${process.env.DEPLOYMENT_ACCOUNT_PRIVATE_KEY}`].map(key => `0x${key}`)
-    },
     optimism: {
-      url: process.env.OPTIMISM_RPC_URL,
-      accounts: [`${process.env.DEPLOYMENT_ACCOUNT_PRIVATE_KEY}`].map(key => `0x${key}`),
+      url: `https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY_OPTIMISM}`,
+      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
       chainId: 10, // Use 69 for Optimism Testnet
     },
+    sepiola: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY_SEPIOLA}`,
+      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`]
+    },
+    // Additional networks here...
   },
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY
+  },
+  sourcify: {
+    enabled: true
+  }
 };
 
 export default config;
