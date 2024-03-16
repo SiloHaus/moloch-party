@@ -1,26 +1,48 @@
-# manifold-Commissions
+## Todo: 
 
-* [manifold-lazyMint](https://github.com/SiloHaus/manifold-lazyMint)
+// OG NFT Sale Repo -- this solves the 14 inside of the treasury, and deposits them into a contract that people can mint from.
+// Check lazyMint Deploy to see if any purchases, and then nullify contract, and restart using Splits for payments.
+// Combine the Repos into one -- and brand it as a Kickstarter Repo.
+// Check Splits | Withdraw for each Contract
+// Create Commissions MetaData Folder
+// Ask Shizzy to create Comm Placeholder Image
+// Create a Readme, which briefly summarizes how to use these together with Moloch RDF
 
-lazyMint sets up an NFT Collection, with images that have been stored already on Arweave, and are minted in sequence.
+## Contracts
 
-The purpose is to sell an NFT Collection to raise funds for a community owned treasury, which is established via Moloch RDF.
+Contracts are Manifold Extensions, which work together to create a Kickstarter Launch | Minter Experience.
 
-* [manifold-approveTransfer](https://github.com/SiloHaus/manifold-approveTransfer)
+* MintExtension.sol
+  * A Mint Extension for a Manifold PFP Project.
+* CommExtension.sol
+  * A Commission Extension for a Manifold Collection, which allows for Minters to order custom pieces which exist with the same contract.
+  * [manifold-lazyMint](https://github.com/SiloHaus/manifold-lazyMint)
+* PreTransferHook.sol
+  * A check to make sure all NFTs which are transferred still hold their Moloch Shares in their Tokenbound Accounts.
+  * [manifold-approveTransfer](https://github.com/SiloHaus/manifold-approveTransfer)
+* DAOInventory.sol
+  * A distribution for the existing 14 NFTs in the DAO Treasury.
 
-approveTransfer is a Pre-Transfer Hook Extension, which checks whether or not a specific Baal Governance Share exists in a specific Tokenbound account for a specific NFT Contract.
+## Tools
 
-The purpose is to protect against a type of double-spend, where someone RQs their equity, and then sells the NFT. The approveTransfer Hook prevents this, by preventing transfers of NFTs if the Shares are not in the TokenBound Accounts -- or, if the NFTs are held by a whitelisted address, such as a DAO Treasury or a WL Sudoswap Pool.
+* Moloch RDF Summoner
+* Moloch RDF Admin | Claim App
+* [Hashlips | Generative Traits Art Engine](https://github.com/HashLips/hashlips_art_engine)
+* [Splits.org](https://app.splits.org/accounts/0xEBae01221b1C1F8c8694967A16389893C04b381F/?chainId=10)
+  * Payment Splits contract with UI, on Optimism.
 
-* [manifold-Commissions](https://github.com/SiloHaus/manifold-Commissions)
+## Payments
 
-manifold-Commissions is a separate mint extension that runs concurrently with lazyMint. 
+withdraw() sends funds to a contract on splits.org.
 
-The purpose is to have a placeholder image with a set amount of possible commission slots, and to have the opportunity for the commission slots to be set during the time period.
+These two contracts have a split where 2.5% goes to the Alchemix OP Treasury for Grants, the rest is DAO Equity.
+* Alchemistresses OG NFT: 0.42 ETH
+* Side Batch NFT: 0.42 ETH
 
-## Alchemistresses Application: 
+CommExtension uses a split which also pays Shizzy.ETH as an artist to create the custom art.
+* Commission: 0.5 ETH
+  * 84% DAO Equity
+  * 2.5% Alchemix OP Treasury Grants
+  * 13.5% Shizzy
 
-Adding Commissions to an existing campaign is as follows: 
-
-1) Manifold Minter Extension which matches lazyMint
-2) 
+These Balances are slightly offset by a 1% contribution to Splits.
