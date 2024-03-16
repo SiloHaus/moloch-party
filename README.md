@@ -22,4 +22,5 @@ The purpose is to have a placeholder image with a set amount of possible commiss
 
 Adding Commissions to an existing campaign is as follows: 
 
-1) Create the
+1) Manifold Minter Extension which matches lazyMint
+2) 
