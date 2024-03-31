@@ -63,3 +63,9 @@
 #### BAAL TOKEN
 
 * $BAAL Token which can be distributed continuously with new campaigns, to each participant
+
+## EXTENSION INSTRUCTIONS
+
+1) npx hardhat compile
+2) npx hardhat run scripts/deploy.js --network optimism
+3) npx hardhat verify --network optimism /*deployed extension contract*/ /*"molochShareAddress"*/ "0x000000006551c19487814612e58FE06813775758" "0x55266d75D1a14E4572138116aF39863Ed6596E7F" "0x0000000000000000000000000000000000000000000000000000000000000000" "10" /*"nftContract from Manifold"*/

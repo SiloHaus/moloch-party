@@ -1,8 +1,6 @@
 # SCRIPTS
 
-These Scripts are meant to be used within Hardhat. In order to get them to work, you need to go through and add the correct information: 
-
-Mostly, the information is the contract address of the Minter -- since, these scripts all call functions on that contract.
+Most of these scripts require you to add the Contract Address of MintExtension.sol.
 
 ## capSupply.js
 * The Minter has a maxSupply set, and keeps track of mintCount. This is because Manifold Contracts allow you to mint on top of an existing collection, so if you wanted to add a Batch of 69 on top of a collection of 69, you would need that control to be set as a "maxSupply" which can be minted by this extension.
