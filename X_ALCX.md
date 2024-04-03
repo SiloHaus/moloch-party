@@ -3,28 +3,6 @@
 execTransactionAsModule() contained within the ABI of:
 0xfb1bffc9d739b8d520daf37df666da4c687191ea
 
-## Unstake yvWETH
-
-0xe35fec3895dcecc7d2a91e8ae4ff3c0d43ebffe0
-
-{
-    "func": "exit",
-    "params": []
-}
-
-### Deposit yvWETH via Gateway to stakeETH position
-
-0xede36d3f423ef198abe82d2463e0a18bcf2d9397
-
-{
-    "func": "deposit",
-    "params": [
-        "0xE62DDa84e579e6A37296bCFC74c97349D2C59ce3",
-        9725342115185895,
-        "0xF1B3A985E3aC73dc81f8fcD419c4dda247d2292c"
-    ]
-}
-
 ## alETH BORROW
 
 1. mint()
