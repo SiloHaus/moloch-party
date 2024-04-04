@@ -3,8 +3,8 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./TierI.sol";
-import "./TierII.sol";
+import "contracts/TierI.sol";
+import "contracts/TierII.sol";
 
 contract MolochParty is ReentrancyGuard, Ownable {
     uint256 public goalAmount;
@@ -27,8 +27,9 @@ contract MolochParty is ReentrancyGuard, Ownable {
     TierI public tierIContract;
     TierII public tierIIContract;
 
-    event ContributionReceived(address contributor, uint256 amount, uint tier);
     event GoalReached(uint256 raisedAmount);
+    event CampaignFinalized(uint256 totalMinted, uint256 timeFinalized); // 1) Event when the timer runs out
+    event TokenMinted(uint256 totalMinted); // 2) Event each time totalMinted increases
 
     constructor(
         uint256 _mintSupply,
@@ -95,7 +96,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
                 tierIIContract.mintComm(contributor); // Directly mint for Tier II commission
             }
             totalMinted++;
-            emit ContributionReceived(contributor, amount, tier);
+            emit TokenMinted(totalMinted); // Emit event each time totalMinted increases
         }
     }
 
@@ -103,10 +104,10 @@ contract MolochParty is ReentrancyGuard, Ownable {
         require(block.timestamp > endTime, "Campaign has not yet ended.");
         if (totalMinted < mintSupply) {
             uint256 remainder = mintSupply - totalMinted;
-            // Assuming mintBatch function in TierI accepts the number of NFTs to mint
             tierIContract.mintBatch(molochVault, remainder);
             totalMinted += remainder;
         }
+        emit CampaignFinalized(totalMinted, block.timestamp); // Emit event when the campaign finalizes
     }
 
     function withdraw() public onlyOwner {

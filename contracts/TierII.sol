@@ -9,21 +9,22 @@ import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 /*
 SETUP:
-1. Register TierI extension with Manifold.
+1. Register TierII extension with Manifold.
 2. setBaseURI() pointing to an Akord.
 3. setMolochPartyAddress().
 */
 
-abstract contract TierII is AdminControl, ICreatorExtensionTokenURI {
+contract TierII is AdminControl, ICreatorExtensionTokenURI {
     using Strings for uint256;
 
     address private _creator; // Manifold Parent Contract
     string private _baseURI; // BaseURI sourced from Akord, pointing to commission-specific metadata
     address private molochParty; // Address of the MolochParty contract
+    uint256[] private mintedTokenIds; // Array to store minted TokenIDs
 
-    event TokenMinted(uint256 tokenId); // Used by Frontend with Event Listener, to update remaining NFTs to be Minted.
+    event TokenMinted(uint256 tokenId); //tap_to_emit_tokenIds
 
-    constructor(address creator) {
+    constructor(address creator) Ownable(msg.sender) {
         _creator = creator;
     }
 
@@ -45,7 +46,13 @@ abstract contract TierII is AdminControl, ICreatorExtensionTokenURI {
     function mintComm(address recipient) external {
         require(msg.sender == molochParty, "Caller is not authorized MolochParty");
         uint256 tokenId = IERC721CreatorCore(_creator).mintExtension(recipient);
+        mintedTokenIds.push(tokenId); // Track the minted TokenID
         emit TokenMinted(tokenId);
+    }
+
+    // Function to retrieve all minted TokenIDs
+    function getMintedTokenIds() external view returns (uint256[] memory) {
+        return mintedTokenIds;
     }
 
     // Akord URI Setup

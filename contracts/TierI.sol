@@ -15,16 +15,16 @@ SETUP:
 3. setMolochPartyAddress().
 */
 
-abstract contract TierI is AdminControl, ICreatorExtensionTokenURI {
+contract TierI is AdminControl, ICreatorExtensionTokenURI {
     using Strings for uint256;
 
     address private _creator; // Manifold Contract
     string private _baseURI; // Sources URI from Akord
     address private molochParty; // MolochParty Contract Address
 
-    event TokenMinted(uint256 tokenId); // Used by Frontend with Event Listener, to update remaining NFTs to be Minted.
+    event TokenMinted(uint256 tokenId); //tap_to_emit_tokenIds
  
-    constructor(address creator) {
+    constructor(address creator) Ownable(msg.sender) {
         _creator = creator;
     }
 

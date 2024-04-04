@@ -29,3 +29,6 @@ Scripts for TierI and TierII are limited, because they are extensions, and their
 * Requires TierII Contract Address.
 * Requires MolochParty Address.
 ``` npx hardhat run scripts/TierII/setMolochPartyAddress.ts --network sepolia ```
+* scripts/TierII/getMintedTokenIds.ts
+* Requires TierII Contract Address.
+``` npx hardhat run scripts/TierII/getMintedTokenIds.ts --network sepolia ```
