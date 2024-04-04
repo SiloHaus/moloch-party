@@ -8,10 +8,10 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 /*
-Steps for setting up the TierII extension:
-1. Register the extension with the Manifold XYZ core contract to ensure it's recognized within the ecosystem.
-2. Utilize setBaseURI to specify the metadata location, integrating with Akord for decentralized storage.
-3. Use setMolochPartyAddress to connect this extension with the MolochParty contract, enabling controlled minting.
+SETUP:
+1. Register TierI extension with Manifold.
+2. setBaseURI() pointing to an Akord.
+3. setMolochPartyAddress().
 */
 
 abstract contract TierII is AdminControl, ICreatorExtensionTokenURI {
@@ -21,7 +21,7 @@ abstract contract TierII is AdminControl, ICreatorExtensionTokenURI {
     string private _baseURI; // BaseURI sourced from Akord, pointing to commission-specific metadata
     address private molochParty; // Address of the MolochParty contract
 
-    event TokenMinted(uint256 tokenId);
+    event TokenMinted(uint256 tokenId); // Used by Frontend with Event Listener, to update remaining NFTs to be Minted.
 
     constructor(address creator) {
         _creator = creator;
@@ -31,24 +31,24 @@ abstract contract TierII is AdminControl, ICreatorExtensionTokenURI {
         return interfaceId == type(ICreatorExtensionTokenURI).interfaceId || AdminControl.supportsInterface(interfaceId) || super.supportsInterface(interfaceId);
     }
 
-    // Set the MolochParty contract address; only an admin can set this
+    // setBaseURI()
+    function setBaseURI(string memory baseURI) external adminRequired {
+        _baseURI = baseURI;
+    }
+
+    // setMolochPartyAddress()
     function setMolochPartyAddress(address _molochParty) external adminRequired {
         molochParty = _molochParty;
     }
 
-    // Mint commissioned work; only callable by MolochParty
+    // mintComm() called by MolochParty.sol for TierII Contribution.
     function mintComm(address recipient) external {
         require(msg.sender == molochParty, "Caller is not authorized MolochParty");
         uint256 tokenId = IERC721CreatorCore(_creator).mintExtension(recipient);
         emit TokenMinted(tokenId);
     }
 
-    // Set BaseURI for commissioned works metadata
-    function setBaseURI(string memory baseURI) external adminRequired {
-        _baseURI = baseURI;
-    }
-
-    // Return tokenURI for a given tokenId, concatenating the baseURI with the token's ID
+    // Akord URI Setup
     function tokenURI(address creator, uint256 tokenId) external view override returns (string memory) {
         require(creator == _creator, "Invalid token or creator");
         return string(abi.encodePacked(_baseURI, tokenId.toString(), ".json"));

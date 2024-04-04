@@ -1,27 +1,20 @@
-// Import necessary Hardhat modules
 import { ethers } from "hardhat";
 
 async function main(): Promise<void> {
-  // Get the Contract Factory for MintExtension
-  const MintExtensionFactory = await ethers.getContractFactory("MintExtension");
+  // Get the Contract Factory for TierI
+  const TierIFactory = await ethers.getContractFactory("TierI");
 
-  // Define the parameters for the contract constructor
-  const creator = "0xWHATEVER"; // Placeholder for Manifold Creator Contract address
-  const alchemistressesMolochTreasury = "0xTREASURY"; // Placeholder for DAO Treasury address
-  const alchemixOpMultisig = "0xWHOMEVER"; // Placeholder for Cut Treasury address
+  // Define the parameter for the TierI contract constructor
+  const creator = "0xCREATOR_ADDRESS"; // Placeholder for Manifold Creator Contract address
 
-  // Deploy the contract with all constructor arguments
-  const mintExtension = await MintExtensionFactory.deploy(
-    creator, 
-    alchemistressesMolochTreasury, 
-    alchemixOpMultisig
-  );
+  // Deploy the TierI contract with the constructor argument
+  const tierI = await TierIFactory.deploy(creator);
 
   // Wait for the contract to be deployed
-  await mintExtension.deployed();
+  await tierI.deployed();
 
-  // Log the address of the deployed contract
-  console.log("MintExtension deployed to:", mintExtension.address);
+  // Log the address of the deployed TierI contract
+  console.log("TierI deployed to:", tierI.address);
 }
 
 // Execute the main function and handle possible errors

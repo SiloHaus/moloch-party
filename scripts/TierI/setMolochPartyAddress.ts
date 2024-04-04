@@ -4,8 +4,8 @@ async function main(): Promise<void> {
     // Your TierI contract's deployed address
     const tierIContractAddress = "0xYourTierIContractAddressHere";
     
-    // The new base URI you want to set
-    const newBaseURI = "https://weirdManifestPathFromAkord.arweave.net/moreJibberishHere/JSON/";
+    // The MolochParty contract address you want to set
+    const molochPartyAddress = "0xYourMolochPartyContractAddressHere";
 
     // Get signer account from the hardhat environment
     const [signer] = await ethers.getSigners();
@@ -14,11 +14,11 @@ async function main(): Promise<void> {
     const TierI = await ethers.getContractFactory("TierI");
     const tierIContract = TierI.attach(tierIContractAddress).connect(signer);
 
-    // Call the setBaseURI function
-    const tx = await tierIContract.setBaseURI(newBaseURI);
+    // Call the setMolochPartyAddress function
+    const tx = await tierIContract.setMolochPartyAddress(molochPartyAddress);
     await tx.wait(); // Wait for the transaction to be mined
 
-    console.log(`TierI BaseURI set to: ${newBaseURI}`);
+    console.log(`MolochParty address set to: ${molochPartyAddress}`);
 }
 
 main()

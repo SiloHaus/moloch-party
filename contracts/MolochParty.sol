@@ -14,7 +14,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
 
     uint256 public costToMint;
     uint256 public costToCommission;
-    uint256 public mintSupply = 69; // Total NFTs allowed to be minted, value set in constructor
+    uint256 public mintSupply;
 
     uint256 public totalMinted; // Track the total number of NFTs minted
 
