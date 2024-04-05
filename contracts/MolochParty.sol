@@ -76,29 +76,49 @@ contract MolochParty is ReentrancyGuard, Ownable {
     }
 
     function _handleContribution(uint256 amount, address contributor, uint tier) private {
-        uint256 artistShare = (amount * artistSharePercentage) / 100;
-        uint256 molochShare = amount - artistShare;
+    uint256 artistShare = 0;
+    uint256 molochShare = 0;
 
-        raisedAmount += amount;
-        molochVault.transfer(molochShare);
-        artistVault.transfer(artistShare);
+    if (tier == 1) {
+        // Calculate artist share and molochVault share for Tier I
+        artistShare = (amount * artistSharePercentage) / 100;
+        molochShare = amount - artistShare;
+    } else if (tier == 2) {
+        // For Tier II, first separate out the commission and calculate shares
+        uint256 costToMintPortion = costToMint; // This is the part used for minting, not including commission
+        uint256 commission = costToCommission; // Commission goes entirely to the artist
 
-        if (!goalReached && raisedAmount >= goalAmount) {
-            goalReached = true;
-            emit GoalReached(raisedAmount);
-        }
+        // Calculate artist share from the minting portion only
+        uint256 artistShareFromMint = (costToMintPortion * artistSharePercentage) / 100;
 
-        // Minting logic based on the tier
-        if (totalMinted < mintSupply) {
-            if (tier == 1) {
-                tierIContract.mint(contributor); // Directly mint for Tier I
-            } else if (tier == 2) {
-                tierIIContract.mintComm(contributor); // Directly mint for Tier II commission
-            }
-            totalMinted++;
-            emit TokenMinted(totalMinted); // Emit event each time totalMinted increases
-        }
+        // Total artist share is commission + share from minting portion
+        artistShare = commission + artistShareFromMint;
+
+        // Moloch share is the remainder of the mint portion after artist's share
+        molochShare = costToMintPortion - artistShareFromMint;
     }
+
+    // Process the shares
+    raisedAmount += amount;
+    molochVault.transfer(molochShare);
+    artistVault.transfer(artistShare);
+
+    if (!goalReached && raisedAmount >= goalAmount) {
+        goalReached = true;
+        emit GoalReached(raisedAmount);
+    }
+
+    // Minting logic remains unchanged
+    if (totalMinted < mintSupply) {
+        if (tier == 1) {
+            tierIContract.mint(contributor); // Directly mint for Tier I
+        } else if (tier == 2) {
+            tierIIContract.mintComm(contributor); // Directly mint for Tier II commission
+        }
+        totalMinted++;
+        emit TokenMinted(totalMinted); // Emit event each time totalMinted increases
+    }
+}
 
     function finalizeCampaign() public onlyOwner {
         require(block.timestamp > endTime, "Campaign has not yet ended.");

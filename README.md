@@ -4,12 +4,39 @@
 
 Kickstarter for Manifold NFT Collections on Optimism | Base.
 
-## MANIFOLD
+Each Campaign has two Tiers:
 
-Extensions:
+* TierI: Mint PfP
+* TierII: Custom Art Mint
 
-* Mint Collection
-* Custom Commissioned NFTs
+All NFTs minted are part of the same Contract | Collection, and have sequential TokenIDs.
+
+The purpose of these campaigns is to raise and build DAO owned LP, to farm on Aerodrome and Sudoswap.
+
+## STRATEGY
+
+DAO owned LP for target projects -- such as Thales-USDC LP farms an AERO token. The DAO locks that veAERO and uses the voting power to extract bribes, or build out DAO owned LP for $BAAL.
+
+## FUNDS
+
+Funds are split between artistVault and molochVault.
+
+### artistVault
+
+The artist is the leader | admin | creator of campaigns.
+
+* Commissions Premium goes directly to artistVault
+* artistShare goes directly to artistVault
+
+artistVault is the managerVault for the Moloch Treasury, and is not RQ.
+
+### molochVault
+
+* DAO owned LP for a Target Project
+  * Example: Thales
+
+* DAO owned Sudoswap LP for that collection
+* DAO owned LP for a $BAAL Token.
 
 ## MOLOCH RDF | TOOLS
 
@@ -17,7 +44,6 @@ Extensions:
 * [RDF Admin App](https://silohaus.github.io/silo-nft-dao-admin/)
 * [RDF Activation](https://silohaus.github.io/silo-nft-dao-admin/#/molochv3/0xa/0x912aab5913023d20a5dcd17160e6954528433a7f/activate)
 * [Hashlips | Generative Traits Art Engine](https://github.com/HashLips/hashlips_art_engine)
-* [Splits.org](https://app.splits.org/accounts/0xEBae01221b1C1F8c8694967A16389893C04b381F/?chainId=10)
 
 ## REFERENCE
 

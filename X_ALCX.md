@@ -3,13 +3,6 @@
 execTransactionAsModule() contained within the ABI of:
 0xfb1bffc9d739b8d520daf37df666da4c687191ea
 
-## alETH BORROW
-
-1. mint()
-   * 0xe04bb5b4de60fa2fba69a93ade13a8b3b569d5b4
-   * Value: 7000000000000000000
-   * recipient: 0x7BE79ec75d58FCD1053ef42397967abD3e1A8Df6
-
 ## Deposit alETH/ETH LP on Velodrome
 
 1. addLiquidity() // This adds both alETH and WETH into the LP and deposits the LP Token
@@ -17,12 +10,12 @@ execTransactionAsModule() contained within the ABI of:
    * Token A Address: 0x3E29D3A9316dAB217754d13b28646B76607c5f04
    * Token A Address: 0x4200000000000000000000000000000000000006
    * Stable Pool Bool: true
-   * VALUE alETH: 7000000000000000000
-   * VALUE WETH: 3619035205379591493
-   * VALUE alETH Slippage: 6993000000000000000
-   * VALUE WETH Slippage: 3615416170174212000
+   * VALUE alETH: 6860000000000000000
+   * VALUE WETH: 3196974858108222500
+   * VALUE alETH Slippage: 6853140000000000000
+   * VALUE WETH Slippage: 3193777883250114000
    * recipient: 0x7BE79ec75d58FCD1053ef42397967abD3e1A8Df6
-   * Unix Timestamp: 1707861600 // This tx is good until Feb 13th @ 4PM
+   * Unix Timestamp: 1712362500
 
 LP Token sAMMV2-alETH/WETH: 0xa1055762336f92b4b8d2edc032a0ce45ead6280a
 

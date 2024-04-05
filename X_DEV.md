@@ -1,71 +1,87 @@
-## TODO
+# CONTRACTS
 
-## MANIFOLD | TESTNET
+## PartyFactory.sol | PARENT FACTORY | ADMIN
 
-* Mint()
-  * Spend ApproveAll to sell existing Alchemistresses prior to Mint()
-* Comm()
-  * Timer
-  * Close on Timer
-* Withdraw()
-  * After Timer is up.
-* SetTokenURI()
-* ReadBalance Function that is accurate and tells the difference between ETH from Comms and ETH from Mints
+Admin for all Children Contracts, and Communications with Registry.
 
-### React Hooks
+## MolochParty.sol | CHILD DELEGATOR
 
-#### fundingGoal.tsx [raisedAmount, goalAmount, stretchAmount]
+### fundingGoal.tsx [raisedAmount, goalAmount, stretchAmount] // Update | Reduce Variables on Frontend
 
-* raisedAmount needs to exclude commission funds, and only be equity that is raised and deposited toward treasury.
+* The Funding Meter on the Frontend shows how many NFTs have sold in the Campaign.
 
-* Withdraws will also need to take place after the campaign concludes, which means that setRaisedAmount needs to be finalized before withdraw() is executed. That way, the campaign registers as completed and funding score remains.
+// Commission Value is deducted immediately on Mint, and sent to artistVault, so does not impact goalAmount.
 
-* goalAmount | stretchAmount can be set per campaign.
+// Stretch Amount is irrelevant, since we are changing goalAmount to equate to Sold Out, and are not offering refunds.
 
-* raisedAmount needs to exclude commission funds, and if it does, then the gauges will accurately read. This means that there needs to be a splitter inside of the contract which sends the funds off to shizzy's COMM-BANK on contribution. That way, the main funds are always reflective of the balance in the contract.
+### React Hooks: memberCount.tsx [memberNumber]
 
-* Shizzy's COMM-BANK would be a smart contract that receives commission funds, and is only withdrawable by shizzy.eth
+* Number of Moloch Shares for the Collection being Raised.
 
-#### memberCount.tsx [memberNumber]
+// Need to create a function in MolochParty()
+// Insert MolochShareAddress into Constructor
+// Read number of shares and store in contract
+// Event Emit when holder count increases.
+// Use PreTransferHook.sol and 6551 Documentation for Function.
 
-* memberNumber is pulled from Moloch Shares which exist in TBAs of Alchemistresses. The numbers will initially be incorrect, until the 14 from the treasury have been absorbed into circulation.
+### React Hooks: daysLeft.tsx [daysLeft]
 
-#### daysLeft.tsx [daysLeft]
+* Time Limited Campaign.
 
-* daysLeft can be set per Campaign, though for simplicity, and FOMO, it ought to be set to 1. It would be better to have a standard pop up campaign style, with carefully prepared outreach strategies | materials, rather than dead on the water campaigns.
+uint256 _durationInDays,
 
-#### tier1.tsx [ogLeft, sideBatch]
+event CampaignFinalized(uint256 totalMinted, uint256 timeFinalized);
 
-* ogLeft == How many Alchemistress | OGs are available and owned by the Treasury. These need to be sold First.
+## TierI.sol | CHILD DELEGATE
 
-* sideBatch is a variable that does not yet exist. It stands for how many of the Batch II NFTs from Shizzy's collection are minted after the ogLeft == 0.
+* A Mint Extension for a Manifold PFP Project.
 
-* ogLeft ought to sell out, and then afterward, if more people want that collection, they can mint from the SideBatch.
+### React Hooks: tier1.tsx [ogLeft, sideBatch] // Update | Reduce Variables on Frontend
 
-* mint() is not longer able to be called, once the campaign has come to an end.
+uint256 public totalMinted; // Track the total number of NFTs minted
 
-#### tier2.tsx [commLeft]
+function contributeTierI()
+  _handleContribution(costToMint, msg.sender, 1)
+    function mint(address recipient)
+      event TokenMinted(uint256 totalMinted);
 
-* commLeft is about how many custom slots Shizzy is willing to take on at once.
+function finalizeCampaign()
+  tierIContract.mintBatch(molochVault, remainder)
+    function mintBatch(address recipient, uint256 remaining)
+      emit CampaignFinalized(totalMinted, block.timestamp);
 
-* Technically, mintComm() and mint() are two different manifold extensions, under the same NFT Contract, each with their own BaseURI. mintComm() has a placeholder image, all of which are replaced when the commissions have been completed.
+## TierII.sol | CHILD DELEGATE
 
-* mintComm() is not longer able to be called, once the campaign has come to an end.
+* A Commission Extension for a Manifold Collection, which allows for Minters to order custom pieces which exist with the same contract.
 
-.:.
+// Create Commissions MetaData Folder on Akord for TESTNET.
 
-#### DISCORD TICKET BOT
+### React Hooks: tier2.tsx [commLeft] // Update | Reduce Variables on Frontend
 
-* The Commissions queue is a Discord Ticket Bot, with some basic prompts, and room for reference images to be put into the chat for that specific Issue.
+uint256 public totalMinted; // Track the total number of NFTs minted
 
-* The commissioner also needs to link their NFT -- specifically so that the TokenID can be associated with their image.
+function contributeTierII()
+  _handleContribution(costToMint, msg.sender, 2)
+    function mintComm(address recipient)
+      event TokenMinted(uint256 totalMinted);
 
-#### BAAL TOKEN
+// commLeft is not included any longer. We are only tracking totalMinted. Control comm slots by mintprice and mintsupply.
+// Basically, if you would be unhappy doing 69 comms at a premium of .1 ETH per, then raise the price.
 
-* $BAAL Token which can be distributed continuously with new campaigns, to each participant
+## PreTransferHook.sol | INFRA SECURITY
 
-## EXTENSION INSTRUCTIONS
+* A Manifold Extension which checks that a NFT still holds its Moloch Share before Transfer.
 
-1) npx hardhat compile
-2) npx hardhat run scripts/deploy.js --network optimism
-3) npx hardhat verify --network optimism /*deployed extension contract*/ /*"molochShareAddress"*/ "0x000000006551c19487814612e58FE06813775758" "0x55266d75D1a14E4572138116aF39863Ed6596E7F" "0x0000000000000000000000000000000000000000000000000000000000000000" "10" /*"nftContract from Manifold"*/
+1) Set the variables in the deploy.js file for the Pre-Transfer Hook Extension.
+2) Deploy Pre-Transfer Hook Extension to protect against selling NFTs after burning shares
+3) Register the Pre-Transfer Hook Extension as an Extension in Manifold Studio
+4) Enter the contract address into setApproveTransfer() in your Manifold NFT Contract Write as Proxy section on OP Etherscan
+5) addApprovedAddress() for necessary sales and treasury addresses in OP Etherscan for your Extension Contract
+
+## PartyRegistry.sol | INFRA DATA
+
+* Registry tracks each campaign released by MolochParty.sol.
+
+## DISCORD | TICKET BOT
+
+* NFT Gated Discord Server. Ticket Bot has References and Commissioner provides TokenID, Description, References.
