@@ -8,10 +8,34 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 /*
+OBJECTIVE: 
+
+TierII.sol allows custom artwork to be minted within a sequential TokenID series for an existing Manifold Collection.
+
+The Manifold Creator Core Contract will mint sequential TokenIDs from whatever Extension calls mint() next, so TierII and TierI run in parallel. 
+If TokenID 6 is a mintComm(), then the metadata for mint() that would have been tokenID 6 on Akord is passed over.
+
+MolochParty.sol governs supply by setting a cap on the number of tokens minted per campaign, the sum of both Tiers.
+
 SETUP:
-1. Register TierII extension with Manifold.
-2. setBaseURI() pointing to an Akord.
-3. setMolochPartyAddress().
+
+PartyFactory.sol is Admin, and sets these functions:
+
+1. setBaseURI()
+2. setMolochPartyAddress()
+3. registerManifoldExtension()
+
+ARCHITECTURE: 
+
+A Child Instance of TierII.sol is created by PartyFactory.sol for each new campaign.
+
+* TierII.sol is a Child contract of PartyFactory.sol
+* TierII.sol is a Delegate contract of MolochFactory.sol
+
+EVENTS: 
+
+Events Emitted from this contract are Redundant.
+
 */
 
 contract TierII is AdminControl, ICreatorExtensionTokenURI {

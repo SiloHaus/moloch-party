@@ -9,10 +9,33 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 /*
+OBJECTIVE: 
+
+TierI.sol contains mint(), which is a gacha | lazymint for Manifold.
+TierI.sol contains mintBatch(), mints all unsold Inventory to the DAO owned Treasury for Sudo LP.
+
+MolochParty.sol governs supply by setting a cap on the number of tokens minted per campaign, the sum of both Tiers.
+
+
 SETUP:
-1. Register TierI extension with Manifold.
-2. setBaseURI() pointing to an Akord.
-3. setMolochPartyAddress().
+
+PartyFactory.sol is Admin, and sets these functions:
+
+1. setBaseURI()
+2. setMolochPartyAddress()
+3. registerManifoldExtension()
+
+ARCHITECTURE: 
+
+A Child Instance of TierI.sol is created by PartyFactory.sol for each new campaign.
+
+* TierI.sol is a Child contract of PartyFactory.sol
+* TierI.sol is a Delegate contract of MolochFactory.sol
+
+EVENTS: 
+
+Events Emitted from this contract are Redundant.
+
 */
 
 contract TierI is AdminControl, ICreatorExtensionTokenURI {
@@ -49,7 +72,7 @@ contract TierI is AdminControl, ICreatorExtensionTokenURI {
         emit TokenMinted(tokenId);
     }
 
-    // mintBatch() called by MolochParty.sol to deposit mintSupply [all of the rest of the NFTs for that batch of 69 that have not been minted] to molochVault.
+    // mintBatch() called by MolochParty.sol to mint remaining supply at end of Campaign.
     function mintBatch(address recipient, uint256 remaining) external {
         require(msg.sender == molochParty, "Caller is not the MolochParty contract");
         for (uint256 i = 0; i < remaining; i++) {
