@@ -2,6 +2,8 @@
 
 Scripts for TierI and TierII are limited, because they are CHILD DELEGATE contracts, and their main scripts are called by MolochParty.sol.
 
+Need to consolidate Scripts so that PartyFactory.sol Admins everything, except initial deployment.
+
 ## TierI
 
 * scripts/TierI/deploy.ts

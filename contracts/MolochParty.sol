@@ -6,9 +6,20 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "contracts/TierI.sol";
 import "contracts/TierII.sol";
 
+/*
+TODO: 
+
+stretchAmount() -- Can frontend use this information for gauge.
+memberNumber() == Cam frontend pull this information for how many holders of MolochShares there are?
+
+Also, the variables are getting confusing here -- MolochShares is the contract address in the 6551. Moloch Shares is also the Treasury Equity.
+
+*/
+
 contract MolochParty is ReentrancyGuard, Ownable {
     uint256 public goalAmount;
-    uint256 public raisedAmount;
+    uint256 public raisedAmount; // Total deposited to 
+    // uint256 public stretchAmount;
     uint256 public endTime;
     bool public goalReached;
 
@@ -18,11 +29,13 @@ contract MolochParty is ReentrancyGuard, Ownable {
 
     uint256 public totalMinted; // Track the total number of NFTs minted
 
-    address payable public molochVault;
-    address payable public artistVault;
+    address payable public molochVault; // Moloch Treasury Address | RQ
+    address payable public artistVault; // ManagerVault | Non-RQ
 
     // Percentage of each contribution that goes to the artist
     uint256 public artistSharePercentage;
+
+    // I need to import a contract for MolochAddressShares -- and then query the number of holders, and set up an emitter.
 
     TierI public tierIContract;
     TierII public tierIIContract;
@@ -36,6 +49,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
         uint256 _durationInDays, 
         address payable _molochVault,
         address payable _artistVault,
+        // address _molochShareAddress,
         uint256 _costToMint,
         uint256 _costToCommission,
         address _tierIAddress,
@@ -50,9 +64,11 @@ contract MolochParty is ReentrancyGuard, Ownable {
 
         mintSupply = _mintSupply;
         goalAmount = mintSupply * _costToMint;
+        //stretchAmount = mintSupply * _costToCommission;
         endTime = block.timestamp + (_durationInDays * 1 days);
         molochVault = _molochVault;
         artistVault = _artistVault;
+        //molochShareAddress = _molochShareAddress;
         costToMint = _costToMint;
         costToCommission = _costToCommission;
         artistSharePercentage = _artistSharePercentage;

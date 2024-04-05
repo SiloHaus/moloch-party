@@ -5,6 +5,45 @@ import "contracts/MolochParty.sol";
 import "contracts/TierI.sol";
 import "contracts/TierII.sol";
 
+/*
+SETUP TIERI:
+1. Register TierI extension with Manifold. // Create registerManifoldExtension()
+2. setBaseURI() pointing to an Akord.
+3. setMolochPartyAddress().
+*/
+
+/*
+SETUP TIERII:
+1. Register TierII extension with Manifold. // Create registerManifoldExtension()
+2. setBaseURI() pointing to an Akord.
+3. setMolochPartyAddress().
+*/
+
+/*
+
+Might want to designate two different launch functions here: 
+
+1. createCampaign()
+
+Everything will be needed to launch a campaign from scratch.
+
+2. extendCampaign()
+
+Many components will not be needed, because they will be reused.
+
+PreTransferHook
+MolochShareAddress
+Manifold Core Contract
+artistVault
+molochVault
+
+If For Example, I am the only person who ever uses this platform, then I will only need to use createCampaign() once, and then can use extendCampaign() for all of the remaining campaigns. 
+
+This will allow me to build out campaigns, where the membership number increases each time, and the molochTreasury incrases each time, and there is the same SudoSwap Pool, and the same Loot token. 
+
+*/
+
+
 contract PartyFactory {
     // Array to keep track of all deployed campaigns
     address[] public campaigns;

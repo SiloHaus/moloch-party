@@ -8,11 +8,11 @@ Admin for all Children Contracts, and Communications with Registry.
 
 ### fundingGoal.tsx [raisedAmount, goalAmount, stretchAmount] // Update | Reduce Variables on Frontend
 
-* The Funding Meter on the Frontend shows how many NFTs have sold in the Campaign.
+* The Funding Meter on the Frontend shows how many NFTs have sold in the Campaign, and has an overflow for Commissions when Sold Out.
 
-// Commission Value is deducted immediately on Mint, and sent to artistVault, so does not impact goalAmount.
-
-// Stretch Amount is irrelevant, since we are changing goalAmount to equate to Sold Out, and are not offering refunds.
+raisedAmount == the sum of all funds raised, including commissions.
+stretchAmount == [mintSupply * commPrice]
+goalAmount == [mintSupply * costToMint]
 
 ### React Hooks: memberCount.tsx [memberNumber]
 

@@ -1,3 +1,7 @@
+# SECURITY
+
+Best Practices and Cautions for MolochParty and RDF.
+
 ## BEST PRACTICES | SECURITY
 
 **[Vulnerability]**: If you have all of your ETH in the RQ Treasury, and then only one person uses the [RDF Claim App](https://silohaus.github.io/silo-nft-dao-admin/#/molochv3/0xa/0x912aab5913023d20a5dcd17160e6954528433a7f/activate), then that person will have the only share, and their share will be the entire treasury. So, it's best that you wait to have more people use the claim app before transfering ETH to the RQ Treasury.
@@ -15,7 +19,7 @@ Enter the tokenID for each NFT you'd like to claim on behalf of, if you have a s
 10) Transfer Funds from Manager Safe into Moloch Treasury
 11) Give Perms | Ownership of Manifold Contract and Extension Contract to DAO.
 
-## CAUTIONS: 
+## CAUTIONS
 
 You'll notice that some things don't work in the contract:
 
@@ -28,3 +32,7 @@ You also need to be aware of your Permissions moving forward:
 2) Has your Deployer Address revoked its own permissions for the Manifold Contract?
 3) Has your Deployer Address given Ownership of ApproveTransferEx.Sol over to the DAO?
 4) Which addresses have been added to the approveAddress WL?
+
+## artistVault == GNOSIS MODULE == Treasury Admin
+
+Unilateral control over DAO treasury.
