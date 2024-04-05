@@ -36,7 +36,7 @@ event CampaignFinalized(uint256 totalMinted, uint256 timeFinalized);
 
 * A Mint Extension for a Manifold PFP Project.
 
-### React Hooks: tier1.tsx [ogLeft, sideBatch] // Update | Reduce Variables on Frontend
+### React Hooks: tier1.tsx [ogLeft, sideBatch] // Update | Remove Variables on Frontend
 
 uint256 public totalMinted; // Track the total number of NFTs minted
 
@@ -56,7 +56,7 @@ function finalizeCampaign()
 
 // Create Commissions MetaData Folder on Akord for TESTNET.
 
-### React Hooks: tier2.tsx [commLeft] // Update | Reduce Variables on Frontend
+### React Hooks: tier2.tsx [commLeft] // Update | Removee Variables on Frontend
 
 uint256 public totalMinted; // Track the total number of NFTs minted
 
