@@ -1,13 +1,14 @@
 {
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
-    "hardhat": "^2.21.0"
+    "hardhat": "^2.22.3"
   },
   "dependencies": {
     "@manifoldxyz/creator-core-solidity": "^3.0.0",
     "@manifoldxyz/libraries-solidity": "^1.0.4",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@openzeppelin/contracts": "^5.0.2",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2"
   }
 }

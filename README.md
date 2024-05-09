@@ -11,11 +11,7 @@ Each Campaign has two Tiers:
 
 All NFTs minted are part of the same Contract | Collection, and have sequential TokenIDs.
 
-The purpose of these campaigns is to raise and build DAO owned LP, to farm on Aerodrome and Sudoswap.
-
-## STRATEGY
-
-DAO owned LP for target projects -- such as Thales-USDC LP farms an AERO token. The DAO locks that veAERO and uses the voting power to extract bribes, or build out DAO owned LP for $BAAL.
+Campaigns can be launched to support community fundraising and brand marketing.
 
 ## FUNDS
 
@@ -32,11 +28,7 @@ artistVault is the managerVault for the Moloch Treasury, and is not RQ.
 
 ### molochVault
 
-* DAO owned LP for a Target Project
-  * Example: Thales
-
-* DAO owned Sudoswap LP for that collection
-* DAO owned LP for a $BAAL Token.
+Whatever the coordinated fundraising activity is meant to achieve.
 
 ## MOLOCH RDF | TOOLS
 

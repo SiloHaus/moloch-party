@@ -4,6 +4,7 @@ pragma solidity ^0.8.24;
 import "@manifoldxyz/libraries-solidity/contracts/access/AdminControl.sol";
 import "@manifoldxyz/creator-core-solidity/contracts/core/IERC721CreatorCore.sol";
 import "@manifoldxyz/creator-core-solidity/contracts/extensions/ICreatorExtensionTokenURI.sol";
+
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
@@ -15,7 +16,6 @@ TierI.sol contains mint(), which is a gacha | lazymint for Manifold.
 TierI.sol contains mintBatch(), mints all unsold Inventory to the DAO owned Treasury for Sudo LP.
 
 MolochParty.sol governs supply by setting a cap on the number of tokens minted per campaign, the sum of both Tiers.
-
 
 SETUP:
 

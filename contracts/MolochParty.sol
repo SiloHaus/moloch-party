@@ -6,20 +6,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "contracts/TierI.sol";
 import "contracts/TierII.sol";
 
-/*
-TODO: 
 
-stretchAmount() -- Can frontend use this information for gauge.
-memberNumber() == Cam frontend pull this information for how many holders of MolochShares there are?
-
-Also, the variables are getting confusing here -- MolochShares is the contract address in the 6551. Moloch Shares is also the Treasury Equity.
-
-*/
+// stretchAmount() -- Can frontend use this information for gauge.
+// memberNumber() == Cam frontend pull this information for how many holders of MolochShares there are?
 
 contract MolochParty is ReentrancyGuard, Ownable {
-    uint256 public goalAmount;
-    uint256 public raisedAmount; // Total deposited to 
-    // uint256 public stretchAmount;
+    uint256 public goalAmount; 
+    uint256 public raisedAmount;
     uint256 public endTime;
     bool public goalReached;
 

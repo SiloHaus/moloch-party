@@ -1,10 +1,8 @@
 # CONTRACTS
 
-## PartyFactory.sol | PARENT FACTORY | ADMIN
+To reduce size, and for simplicity, I am structuring this so that each campaign needs to be launched manually, rather than have a factory structure.
 
-Admin for all Children Contracts, and Communications with Registry.
-
-## MolochParty.sol | CHILD DELEGATOR
+## MolochParty.sol
 
 ### fundingGoal.tsx [raisedAmount, goalAmount, stretchAmount] // Update | Reduce Variables on Frontend
 
@@ -32,7 +30,7 @@ uint256 _durationInDays,
 
 event CampaignFinalized(uint256 totalMinted, uint256 timeFinalized);
 
-## TierI.sol | CHILD DELEGATE
+## TierI.sol
 
 * A Mint Extension for a Manifold PFP Project.
 
@@ -50,7 +48,7 @@ function finalizeCampaign()
     function mintBatch(address recipient, uint256 remaining)
       emit CampaignFinalized(totalMinted, block.timestamp);
 
-## TierII.sol | CHILD DELEGATE
+## TierII.sol
 
 * A Commission Extension for a Manifold Collection, which allows for Minters to order custom pieces which exist with the same contract.
 
@@ -80,7 +78,7 @@ function contributeTierII()
 
 ## PartyRegistry.sol | INFRA DATA
 
-* Registry tracks each campaign released by MolochParty.sol.
+* You can create a PartyRegistry, which each campaign registers with on launch -- it would be more for long term housekeeping.
 
 ## DISCORD | TICKET BOT
 

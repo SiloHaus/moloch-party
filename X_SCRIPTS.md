@@ -1,16 +1,10 @@
 # SCRIPTS
 
-Scripts for TierI and TierII are limited, because they are CHILD DELEGATE contracts, and their main scripts are called by MolochParty.sol.
-
-Need to consolidate Scripts so that PartyFactory.sol Admins everything, except initial deployment.
-
 ## TierI
 
 * scripts/TierI/deploy.ts
 * Requires Parent Manifold Contract Address.
 ``` npx hardhat run scripts/TierI/deploy.ts --network sepolia ```
-
-These could be controlled by the Factory Contract:
 
 * scripts/TierI/setBaseURI.ts
 * Requires PFP BaseURI set from Akord.
@@ -26,8 +20,6 @@ These could be controlled by the Factory Contract:
 * scripts/TierII/deploy.ts
 * Requires Parent Manifold Contract Address.
 ``` npx hardhat run scripts/TierII/deploy.ts --network sepolia ```
-
-These could be controlled by the Factory Contract:
 
 * scripts/TierII/setBaseURI.ts
 * Requires Commisson Placeholder BaseURI set from Akord.

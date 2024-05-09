@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { DEPLOYER_PRIVATE_KEY, ALCHEMY_API_KEY_OPTIMISM, ALCHEMY_API_KEY_SEPIOLA, ETHERSCAN_API_KEY } = process.env;
+const { DEPLOYER_PRIVATE_KEY, ALCHEMY_API_KEY_BASE, ALCHEMY_API_KEY_OPTIMISM, ALCHEMY_API_KEY_SEPIOLA, ETHERSCAN_API_KEY } = process.env;
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24", // Use the most recent version specified
@@ -16,16 +16,21 @@ const config: HardhatUserConfig = {
     cache: "./cache",
   },
   networks: {
+    base: {
+      url: `https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY_BASE}`,
+      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
+      chainId: 8453,
+    },
     optimism: {
       url: `https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY_OPTIMISM}`,
       accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
-      chainId: 10, // Use 69 for Optimism Testnet
+      chainId: 10,
     },
     sepiola: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY_SEPIOLA}`,
-      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`]
+      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
+      chainId: 11155111,
     },
-    // Additional networks here...
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY
