@@ -6,9 +6,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "contracts/TierI.sol";
 import "contracts/TierII.sol";
 
-
-// stretchAmount() -- Can frontend use this information for gauge.
-
 contract MolochParty is ReentrancyGuard, Ownable {
     uint256 public goalAmount; 
     uint256 public raisedAmount;
@@ -20,12 +17,11 @@ contract MolochParty is ReentrancyGuard, Ownable {
     uint256 public costToCommission;
     uint256 public mintSupply;
 
-    uint256 public totalMinted; // Track the total number of NFTs minted
+    uint256 public totalMinted;
 
     address payable public molochVault; // Moloch Treasury Address | RQ
     address payable public artistVault; // ManagerVault | Non-RQ
 
-    // Percentage of each contribution that goes to the artist
     uint256 public artistSharePercentage;
 
     TierI public tierIContract;
