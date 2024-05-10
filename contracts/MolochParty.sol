@@ -8,14 +8,14 @@ import "contracts/TierII.sol";
 
 
 // stretchAmount() -- Can frontend use this information for gauge.
-// memberNumber() == Cam frontend pull this information for how many holders of MolochShares there are?
 
 contract MolochParty is ReentrancyGuard, Ownable {
     uint256 public goalAmount; 
     uint256 public raisedAmount;
+    uint256 public stretchAmount;
     uint256 public endTime;
     bool public goalReached;
-
+    
     uint256 public costToMint;
     uint256 public costToCommission;
     uint256 public mintSupply;
@@ -28,21 +28,20 @@ contract MolochParty is ReentrancyGuard, Ownable {
     // Percentage of each contribution that goes to the artist
     uint256 public artistSharePercentage;
 
-    // I need to import a contract for MolochAddressShares -- and then query the number of holders, and set up an emitter.
-
     TierI public tierIContract;
     TierII public tierIIContract;
 
+// EVENTS
     event GoalReached(uint256 raisedAmount);
     event CampaignFinalized(uint256 totalMinted, uint256 timeFinalized); // 1) Event when the timer runs out
     event TokenMinted(uint256 totalMinted); // 2) Event each time totalMinted increases
 
+// CONSTRUCTOR
     constructor(
         uint256 _mintSupply,
         uint256 _durationInDays, 
         address payable _molochVault,
         address payable _artistVault,
-        // address _molochShareAddress,
         uint256 _costToMint,
         uint256 _costToCommission,
         address _tierIAddress,
@@ -57,11 +56,10 @@ contract MolochParty is ReentrancyGuard, Ownable {
 
         mintSupply = _mintSupply;
         goalAmount = mintSupply * _costToMint;
-        //stretchAmount = mintSupply * _costToCommission;
+        stretchAmount = mintSupply * _costToCommission;
         endTime = block.timestamp + (_durationInDays * 1 days);
         molochVault = _molochVault;
         artistVault = _artistVault;
-        //molochShareAddress = _molochShareAddress;
         costToMint = _costToMint;
         costToCommission = _costToCommission;
         artistSharePercentage = _artistSharePercentage;
@@ -69,13 +67,16 @@ contract MolochParty is ReentrancyGuard, Ownable {
         tierIIContract = TierII(_tierIIAddress);
     }
 
+// CAMPAIGN CONTRIBUTIONS
+    // MINT
     function contributeTierI() public payable nonReentrant {
         require(block.timestamp <= endTime, "Campaign has ended.");
         require(totalMinted < mintSupply, "Mint supply limit reached.");
         require(msg.value >= costToMint, "Contribution does not meet the minimum cost to mint.");
         _handleContribution(costToMint, msg.sender, 1);
     }
-
+    
+    // CUSTOM COMMISSION MINT
     function contributeTierII() public payable nonReentrant {
         require(block.timestamp <= endTime, "Campaign has ended.");
         require(totalMinted < mintSupply, "Mint supply limit reached.");
@@ -129,6 +130,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
     }
 }
 
+// CLOSE CAMPAIGN
     function finalizeCampaign() public onlyOwner {
         require(block.timestamp > endTime, "Campaign has not yet ended.");
         if (totalMinted < mintSupply) {

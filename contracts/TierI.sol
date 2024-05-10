@@ -16,7 +16,7 @@ contract TierI is AdminControl, ICreatorExtensionTokenURI {
 
     address private _creator; // Manifold Contract
     string private _baseURI; // Sources URI from Akord
-    address private molochParty; // MolochParty Contract Address
+    address private molochParty; // Moloch Party Campaign Contract Address
 
 // EVENTS
     event TokenMinted(uint256 tokenId);

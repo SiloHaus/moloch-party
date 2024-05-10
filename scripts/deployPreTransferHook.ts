@@ -5,11 +5,12 @@ async function main() {
   const PreTransferHookFactory = await ethers.getContractFactory("PreTransferHook");
 
   // Define the parameters for the contract constructor
-  const registryAddress = "0x000000006551c19487814612e58FE06813775758"; // Example 6551Registry address on Optimism
-  const molochShareAddress = "votingTokenAddress"; // Replace with actual Moloch Share contract address for your project.
-  const implementationAddress = "0x55266d75D1a14E4572138116aF39863Ed6596E7F"; // Example implementation address
-  const salt = "0x0000000000000000000000000000000000000000000000000000000000000000"; // Example salt
-  const chainId = "10"; // Example chain ID; ensure this matches your intended deployment chain.
+  const registryAddress = "0x000000006551c19487814612e58FE06813775758"; // 6551 Registry Address for Optimism | Base
+  const molochShareAddress = "votingTokenAddress"; // Moloch Share Contracts are created when RDF is launched, and distributed to 6551 Accts.
+  const implementationAddress = "0x55266d75D1a14E4572138116aF39863Ed6596E7F"; // 6551 Implementation Address for Optimism | Base
+  const salt = "0x0000000000000000000000000000000000000000000000000000000000000000"; // Salt
+  const chainId = "10"; // Optimism ChainId
+  // const chainId = "8453"; // Base ChainId 
   const nftContract = "manifoldNftContractAddress"; // Replace with actual Manifold NFT Contract address for your project.
 
   // Deploy the contract

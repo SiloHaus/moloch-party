@@ -11,13 +11,13 @@ It's best to do a batch claim, or individual claims rather than lose ETH due to 
 The Shaman is an admin contract, which you can find here, at the bottom of the DAO Page.
 ![Screenshot 2024-02-03 at 12 29 48 AM](https://github.com/SiloHaus/manifold-approveTransfer/assets/54530373/5ebaa9d1-34d6-4be1-833b-fb212dc1e1ba)
 
-The Shaman has public claim functions accessible via Etherscan: 
+The Shaman has public claim functions accessible via Etherscan:
 ![Screenshot 2024-02-03 at 12 30 49 AM](https://github.com/SiloHaus/manifold-approveTransfer/assets/54530373/f51e6bdb-520c-4f8a-8b06-3ebbe95faaa1)
 
 Enter the tokenID for each NFT you'd like to claim on behalf of, if you have a situation where there is more ETH in the Treasury, and some shares have not yet been claimed by people who have bought into the DAO.
 
-10) Transfer Funds from Manager Safe into Moloch Treasury
-11) Give Perms | Ownership of Manifold Contract and Extension Contract to DAO.
+Transfer Funds from Manager Safe into Moloch Treasury
+Give Perms | Ownership of Manifold Contract and Extension Contract to DAO.
 
 ## CAUTIONS
 

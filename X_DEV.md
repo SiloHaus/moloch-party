@@ -16,11 +16,7 @@ goalAmount == [mintSupply * costToMint]
 
 * Number of Moloch Shares for the Collection being Raised.
 
-// Need to create a function in MolochParty()
-// Insert MolochShareAddress into Constructor
-// Read number of shares and store in contract
-// Event Emit when holder count increases.
-// Use PreTransferHook.sol and 6551 Documentation for Function.
+// Use Etherscan API.
 
 ### React Hooks: daysLeft.tsx [daysLeft]
 
@@ -63,13 +59,13 @@ function contributeTierII()
     function mintComm(address recipient)
       event TokenMinted(uint256 totalMinted);
 
-// commLeft is not included any longer. We are only tracking totalMinted. Control comm slots by mintprice and mintsupply.
-// Basically, if you would be unhappy doing 69 comms at a premium of .1 ETH per, then raise the price.
+// Control how many commissions you offer by setting a correct price.
 
 ## PreTransferHook.sol | INFRA SECURITY
 
 * A Manifold Extension which checks that a NFT still holds its Moloch Share before Transfer.
 
+0) Deploy RDF for Manifold Contract | This creates MolochShare Token, which is checked for in the PreTransferHook.
 1) Set the variables in the deploy.js file for the Pre-Transfer Hook Extension.
 2) Deploy Pre-Transfer Hook Extension to protect against selling NFTs after burning shares
 3) Register the Pre-Transfer Hook Extension as an Extension in Manifold Studio
