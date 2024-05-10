@@ -1,3 +1,17 @@
+/*
+DEPLOYMENT: 
+
+1) Create Manifold Contract with Deployer Key
+2) Create Moloch Vault Address [Safe | RDF | Test Wallet]
+3) Create Artist Vault Address [Safe | RDF | Test Wallet]
+4) Create NFT Collection that accomodates mintSupply
+5) Upload TierI to Akord and list BaseURI
+6) Upload TierII to Akord and list Base URI
+7) Deploy
+8) registerExtension.ts
+
+*/
+
 import { ethers } from "hardhat";
 
 async function main() {
@@ -9,7 +23,7 @@ async function main() {
     const durationInDays = 1;
     const costToMint = ethers.utils.parseEther("0.1"); // 0.1 ETH
     const costToCommission = ethers.utils.parseEther("0.05"); // 0.05 ETH
-    const artistSharePercentage = 20; // 20% to the artist
+    const artistSharePercentage = 10; // 10% to the artist
 
     // Deploy TierI contract
     const TierI = await ethers.getContractFactory("TierI");

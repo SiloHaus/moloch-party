@@ -29,8 +29,8 @@ contract MolochParty is ReentrancyGuard, Ownable {
 
 // EVENTS
     event GoalReached(uint256 raisedAmount);
-    event CampaignFinalized(uint256 totalMinted, uint256 timeFinalized); // 1) Event when the timer runs out
-    event TokenMinted(uint256 totalMinted); // 2) Event each time totalMinted increases
+    event CampaignFinalized(uint256 totalMinted, uint256 timeFinalized);
+    event TokenMinted(uint256 totalMinted);
 
 // CONSTRUCTOR
     constructor(
@@ -52,7 +52,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
 
         mintSupply = _mintSupply;
         goalAmount = mintSupply * _costToMint;
-        stretchAmount = mintSupply * _costToCommission;
+        stretchAmount = mintSupply * (_costToCommission + _costToMint);
         endTime = block.timestamp + (_durationInDays * 1 days);
         molochVault = _molochVault;
         artistVault = _artistVault;
