@@ -15,6 +15,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
     
     uint256 public costToMint;
     uint256 public costToCommission;
+    uint256 public priceComm;
     uint256 public mintSupply;
 
     uint256 public totalMinted;
@@ -53,6 +54,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
         mintSupply = _mintSupply;
         goalAmount = mintSupply * _costToMint;
         stretchAmount = mintSupply * (_costToCommission + _costToMint);
+        priceComm = _costToCommission + _costToMint;
         endTime = block.timestamp + (_durationInDays * 1 days);
         molochVault = _molochVault;
         artistVault = _artistVault;
