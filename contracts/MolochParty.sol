@@ -16,9 +16,10 @@ contract MolochParty is ReentrancyGuard, Ownable {
     uint256 public costToMint;
     uint256 public costToCommission;
     uint256 public priceComm;
+    
     uint256 public mintSupply;
-
     uint256 public totalMinted;
+    uint256 public mintRemaining;
 
     address payable public molochVault; // Moloch Treasury Address | RQ
     address payable public artistVault; // ManagerVault | Non-RQ
@@ -52,8 +53,9 @@ contract MolochParty is ReentrancyGuard, Ownable {
         require(_artistSharePercentage <= 100, "Artist share percentage must be between 0 and 100.");
 
         mintSupply = _mintSupply;
-        goalAmount = mintSupply * _costToMint;
-        stretchAmount = mintSupply * (_costToCommission + _costToMint);
+        mintRemaining = _mintSupply;
+        goalAmount = _mintSupply * _costToMint;
+        stretchAmount = _mintSupply * (_costToCommission + _costToMint);
         priceComm = _costToCommission + _costToMint;
         endTime = block.timestamp + (_durationInDays * 1 days);
         molochVault = _molochVault;
@@ -124,6 +126,7 @@ contract MolochParty is ReentrancyGuard, Ownable {
             tierIIContract.mintComm(contributor); // Directly mint for Tier II commission
         }
         totalMinted++;
+        mintRemaining--;
         emit TokenMinted(totalMinted); // Emit event each time totalMinted increases
     }
 }
