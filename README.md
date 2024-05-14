@@ -1,34 +1,25 @@
-# MOLOCH.PARTY
+# MOLOCH.PARTY | OPTIMISTIC LANDSCAPES
 
 ## OBJECTIVE
 
-Kickstarter for Manifold NFT Collections on Optimism | Base.
+Kickstarter for Manifold Landscape Collections on Optimism.
 
 Each Campaign has two Tiers:
 
-* TierI: Mint PfP
-* TierII: Custom Art Mint
+* TierI: OP LANDSCAPES
+* TierII: PIXEL LANDSCAPES
 
 All NFTs minted are part of the same Contract | Collection, and have sequential TokenIDs.
 
-Campaigns can be launched to support community fundraising and brand marketing.
+## TREAUSRY ADDRESSES
 
-## FUNDS
+Moloch Vault: 0x
+Artist Vault: 0x
 
-Funds are split between artistVault and molochVault.
+## AKORD BASEURI
 
-### artistVault
-
-The artist is the leader | admin | creator of campaigns.
-
-* Commissions Premium goes directly to artistVault
-* artistShare goes directly to artistVault
-
-artistVault is the managerVault for the Moloch Treasury, and is not RQ.
-
-### molochVault
-
-Whatever the coordinated fundraising activity is meant to achieve.
+* TierI: [Landscapes BaseURI](https://iuez62szp7zcimgovqo3finks7ziz532jvsfndb6zereqsktdzia.arweave.net/RQmfall_8iQwzqwdsqGql_KM93pNZFaMPskiSElTHlA/JSON/)
+* TierII: [PixelLandscapes BaseURI](https://iuez62szp7zcimgovqo3finks7ziz532jvsfndb6zereqsktdzia.arweave.net/RQmfall_8iQwzqwdsqGql_KM93pNZFaMPskiSElTHlA/PIXELJSON/)
 
 ## MOLOCH RDF | TOOLS
 

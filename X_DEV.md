@@ -1,7 +1,5 @@
 # CONTRACTS
 
-To reduce size, and for simplicity, I am structuring this so that each campaign needs to be launched manually, rather than have a factory structure.
-
 ## MolochParty.sol
 
 ### fundingGoal.tsx [raisedAmount, goalAmount, stretchAmount] // Update | Reduce Variables on Frontend
