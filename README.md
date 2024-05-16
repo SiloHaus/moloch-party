@@ -27,22 +27,28 @@ Each Campaign has two Tiers:
 
 All NFTs minted are part of the same Contract | Collection, and have sequential TokenIDs.
 
+BaseURI has a setter function, which means you can have commissions within the same contract.
+
 ## TREAUSRY ADDRESSES
 
-Moloch Vault: 0x
-Artist Vault: 0x
+Moloch Vault: Deployer Wallet [TEST]
+Artist Vault: Root Wallet [TEST]
 
 ## AKORD BASEURI
 
 * TierI: [Landscapes BaseURI](https://iuez62szp7zcimgovqo3finks7ziz532jvsfndb6zereqsktdzia.arweave.net/RQmfall_8iQwzqwdsqGql_KM93pNZFaMPskiSElTHlA/JSON/)
 * TierII: [PixelLandscapes BaseURI](https://iuez62szp7zcimgovqo3finks7ziz532jvsfndb6zereqsktdzia.arweave.net/RQmfall_8iQwzqwdsqGql_KM93pNZFaMPskiSElTHlA/PIXELJSON/)
 
+## SCRIPTS
+
+* Enter details for campaign in deploy.ts
+``` npx hardhat run scripts/deploy.ts --network sepolia ```
+
 ## MOLOCH RDF | TOOLS
 
 * [RDF Summoner on OP | BASE](https://silohaus.github.io/silo-rdf-summoner/)
 * [RDF Admin App](https://silohaus.github.io/silo-nft-dao-admin/)
 * [RDF Activation](https://silohaus.github.io/silo-nft-dao-admin/#/molochv3/0xa/0x912aab5913023d20a5dcd17160e6954528433a7f/activate)
-* [Hashlips | Generative Traits Art Engine](https://github.com/HashLips/hashlips_art_engine)
 
 ## REFERENCE
 
