@@ -3,7 +3,7 @@ import { BigNumber } from "ethers";
 
 async function main(): Promise<void> {
     // TierII contract's deployed address
-    const tierIIContractAddress = "0xYourTierIIContractAddressHere";
+    const tierIIContractAddress = "0x3e22B269BAE7C670676df9314F15CE65aDAeBb80";
 
     // Setup ethers provider, using the default provider here (e.g., Hardhat's local network)
     const provider = ethers.provider;

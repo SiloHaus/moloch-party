@@ -11,7 +11,7 @@ async function main() {
   const salt = "0x0000000000000000000000000000000000000000000000000000000000000000"; // Salt
   const chainId = "10"; // Optimism ChainId
   // const chainId = "8453"; // Base ChainId 
-  const nftContract = "manifoldNftContractAddress"; // Replace with actual Manifold NFT Contract address for your project.
+  const nftContract = "0x8567Ad6A6F2274bddca41d6F5c235e66E2d17dE9"; // Replace with actual Manifold NFT Contract address for your project.
 
   // Deploy the contract
   const preTransferHookInstance = await PreTransferHookFactory.deploy(

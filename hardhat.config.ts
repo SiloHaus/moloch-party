@@ -26,7 +26,7 @@ const config: HardhatUserConfig = {
       accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
       chainId: 10,
     },
-    sepiola: {
+    sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY_SEPIOLA}`,
       accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
       chainId: 11155111,
