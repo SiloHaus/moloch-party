@@ -21,8 +21,8 @@ async function main() {
     const artistVaultAddress = "0x5304ebB378186b081B99dbb8B6D17d9005eA0448"; // Placeholder for the Artist Vault address
     const mintSupply = 9;
     const durationInDays = 1;
-    const costToMint = ethers.utils.parseEther("0.1"); // 0.1 ETH
-    const costToCommission = ethers.utils.parseEther("0.1"); // 0.1 ETH
+    const costToMint = ethers.utils.parseEther("0.01"); // 0.01 ETH
+    const costToCommission = ethers.utils.parseEther("0.01"); // 0.01 ETH
     const artistSharePercentage = 10; // 10% to the artist
 
     // Deploy TierI contract

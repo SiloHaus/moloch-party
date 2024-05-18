@@ -6,10 +6,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "contracts/TierI.sol";
 import "contracts/TierII.sol";
 
+// Campaign starts as soon as this is deployed, and lasts for 24 Hours.
+
 contract MolochParty is ReentrancyGuard, Ownable {
     uint256 public goalAmount; 
     uint256 public raisedAmount;
     uint256 public stretchAmount;
+    uint256 public startTime;
     uint256 public endTime;
     bool public goalReached;
     
@@ -57,7 +60,8 @@ contract MolochParty is ReentrancyGuard, Ownable {
         goalAmount = _mintSupply * _costToMint;
         stretchAmount = _mintSupply * (_costToCommission + _costToMint);
         priceComm = _costToCommission + _costToMint;
-        endTime = block.timestamp + (_durationInDays * 1 days);
+        startTime = block.timestamp;
+        endTime = startTime + (_durationInDays * 1 days);
         molochVault = _molochVault;
         artistVault = _artistVault;
         costToMint = _costToMint;
